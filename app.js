@@ -3,8 +3,8 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-// server.listen(80);
-server.listen(process.env.PORT || 3000);
+server.listen(80); //for local test
+//server.listen(process.env.PORT || 3000);//for publish to heroku
 
 app.use("/", express.static(__dirname + '/public'));
 

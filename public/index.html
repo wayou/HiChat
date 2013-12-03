@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>Simple Chat</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>HiChat</title>
+    <link rel="stylesheet" type="text/css" href="style/app.css">
+     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script type="text/javascript" src="chat.js"></script>
+    <script type="text/javascript" src="js/hichat.js"></script>
   </head>
   <body>
     <div id="wrapper">
-      <h1>Simple Chat</h1>
+      <h1>HiChat</h1>
       <div id="messages"></div>
       <div class="nic">
         Your Name
@@ -18,10 +20,11 @@
       <textarea id="message"></textarea>
       <input id="send" type="submit" value="Send"/>
     </div>
+    <footer>Wayou-a web programmer who has free time | <a href="mailto:liuwayong@gmail.com" target="_blank">liuwayong@gmail.com</a></footer>
     <script type="text/javascript">
       $(document).ready(function() {
-        // Chat.initialize('http://localhost/');
-        Chat.initialize('http://hichat.herokuapp.com/');
+         hiChat.initialize('http://localhost/');//for localhost test
+        //hiChat.initialize('http://hichat.herokuapp.com/');//for publish
       });
     </script>
   </body>
