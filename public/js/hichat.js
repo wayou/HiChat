@@ -1,5 +1,9 @@
 //Create a chat module to use.
 (function() {
+
+  var nickname=prompt("Set nickname");
+  $('#nickname').val(nickname);
+  
   window.hiChat = {
     socket: null,
 
@@ -39,7 +43,7 @@
     //then clears it from the textarea
     send: function() {
       this.socket.emit('msg', {
-        name: $('#name').val(),
+        name: $('#nickname').val(),
         msg: $('#message').val(),
       });
 
