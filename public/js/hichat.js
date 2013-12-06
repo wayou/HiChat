@@ -1,5 +1,6 @@
 //Create a chat module to use.
 (function() {
+  debugger;
   window.hiChat = {
     socket: null,
 
