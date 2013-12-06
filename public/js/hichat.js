@@ -1,7 +1,7 @@
 //Create a chat module to use.
 (function() {
 
-  var nickname=prompt("Set nickname");
+  var nickname=prompt("Set nickname","路人甲");
   $('#nickname').val(nickname);
   
   window.hiChat = {
@@ -17,11 +17,13 @@
 
       $('#message').keyup(function(e) {
 //enter to submit msg, shift+enter key to line break
-        if (e.which == 13 && e.shiftKey) {
-
-        } else if (e.which == 13) {
+        if (e.which == 13 && e.ctrlKey) {
           hiChat.send();
           e.preventDefault();
+          console.log("send");
+        } else if (e.which == 13) {
+          // hiChat.send();
+          // e.preventDefault();
         }
       });
 
