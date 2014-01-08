@@ -23,7 +23,7 @@
       <section id="main">
         <div id="messages">
         </div>
-        <div class="toolBar">
+       <!--  <div class="toolBar">
           <ul id="tools">
             <li>
               <img title="Set nickname" src="img/icon/change_nickname.png" />
@@ -55,7 +55,7 @@
           <section class="tool insertImage">
             <input id="imageInserted" type="file">
           </section>
-        </div>
+        </div> -->
         <div class="messageInput">
           <textarea id="message" placeholder="Ctrl+Enter to send the message"></textarea>
           <input id="sendMessage" type="button" value="Send" />
@@ -78,10 +78,10 @@
             
     </script>
     <script type="text/javascript">
-                                  $(document).ready(function() {
-                                hiChat.initialize('http://localhost/'); //for localhost test
-                                //hiChat.initialize('http://hichat.herokuapp.com/');//for publish
-                              });
+      $(document).ready(function() {
+        hiChat.initialize('http://localhost/'); //for localhost test
+        //hiChat.initialize('http://hichat.herokuapp.com/');//for publish
+       });
     </script>
   </body>
 
