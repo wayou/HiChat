@@ -1,0 +1,94 @@
+html, body {
+    margin: 0;
+    background-color: #efefef;
+    font-family: sans-serif;
+}
+.wrapper {
+    width: 500px;
+    height: 640px;
+    padding: 5px;
+    margin: 0 auto;
+    background-color: #ddd;
+}
+#loginWrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(5, 5, 5, .6);
+    text-align: center;
+    color: #fff;
+    display: block;
+    padding-top: 200px;
+}
+#nickWrapper {
+    display: none;
+}
+.banner {
+    height: 80px;
+    width: 100%;
+}
+.banner p {
+    float: left;
+    display: inline-block;
+}
+.controls {
+    height: 100px;
+    margin: 5px 0px;
+}
+#historyMsg {
+    height: 400px;
+    background-color: #fff;
+    overflow: auto;
+}
+.items {
+    height: 30px;
+}
+#colorStyle {
+    width: 50px;
+    border: none;
+    padding:0;
+}
+
+/*custom the file input*/
+/*#sendImage:: -webkit-file-upload-button {
+    visibility: hidden;
+}
+#sendImage::before {
+    content: 'Select some files';
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+}
+#sendImage:hover::before {
+    border-color: black;
+}
+#sendImage:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}*/
+/*end custom file input*/
+
+#messageInput {
+    width: 440px;
+    max-width: 440px;
+    height: 90px;
+    max-height: 90px;
+}
+#sendBtn {
+    width: 50px;
+    height: 96px;
+    float: right;
+}
+footer {
+    text-align: center;
+}

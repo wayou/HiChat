@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Wayou">
+        <meta name="description" content="hichat | a simple chat application built with node.js and websocket">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>hichat</title>
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="banner">
+                <h1>HiChat :)</h1>
+                <span id="status"></span>
+            </div>
+            <div id="historyMsg">
+            </div>
+            <div class="controls" >
+                <div class="items">
+                    <input id="colorStyle" type="color" placeHolder='#000' title="font color" />
+                    <input id="sendEmoji" type="button" value="emoji" title="emoji" />
+                    <input id="sendImage" type="file" value="image"/>
+                    <input id="clearBtn" type="button" value="clear" title="clear screen" />
+                </div>
+                <textarea id="messageInput" placeHolder="enter to send"></textarea>
+                <input id="sendBtn" type="button" value="SEND">
+            </div>
+        </div>
+        <div id="loginWrapper">
+            <p id="info">connecting to server...</p>
+            <div id="nickWrapper">
+                <input type="text" placeHolder="nickname" id="nicknameInput" />
+                <input type="button" value="OK" id="loginBtn" />
+            </div>
+        </div>
+        <footer>
+            <small>view on <a href="https://github.com/Wayou/HiChat">GitHub</a> | <a href="mailto:liuwayong@gmail.com">contact me</a></small>
+        </footer>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="scripts/hichat.js"></script>
+    </body>
+</html>
