@@ -36,16 +36,19 @@ html, body {
 .controls {
     height: 100px;
     margin: 5px 0px;
+    position: relative;
 }
 #historyMsg {
     height: 400px;
     background-color: #fff;
     overflow: auto;
-    padding:2px;
+    padding: 2px;
 }
-
-#historyMsg img{
+#historyMsg img {
     max-width: 99%;
+}
+.timespan {
+    color: #ddd;
 }
 .items {
     height: 30px;
@@ -53,14 +56,14 @@ html, body {
 #colorStyle {
     width: 50px;
     border: none;
-    padding:0;
+    padding: 0;
 }
-
 /*custom the file input*/
-.imageLable{
+
+.imageLable {
     position: relative;
 }
-#sendImage{
+#sendImage {
     position: absolute;
     width: 52px;
     left: 0;
@@ -79,6 +82,26 @@ html, body {
     width: 50px;
     height: 96px;
     float: right;
+}
+#emojiWrapper {
+    display: none;
+    width: 500px;
+    bottom: 105px;
+    position: absolute;
+    background-color: #aaa;
+    box-shadow: 0 0 10px #555;
+}
+#emojiWrapper img {
+    margin: 2px;
+    padding: 2px;
+    width: 25px;
+    height: 25px;
+}
+#emojiWrapper img:hover {
+    background-color: blue;
+}
+.emoji{
+    display: inline;
 }
 footer {
     text-align: center;
