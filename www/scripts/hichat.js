@@ -1,5 +1,5 @@
 /*
- *hichat v0.4.0
+ *hichat v0.4.2
  *Wayou Mar 28,2014
  *view on GitHub:https://github.com/wayou/HiChat
  *see it in action:http://hichat.herokuapp.com/
@@ -152,10 +152,8 @@ HiChat.prototype = {
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8);
-        imgToDisplay = document.createElement('img');
         msgToDisplay.style.color = color || '#000';
         msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';
-        imgToDisplay.src = imgData;
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;
     },
@@ -169,7 +167,7 @@ HiChat.prototype = {
             if (emojiIndex > totalEmojiNum) {
                 result = result.replace(match[0], '[X]');
             } else {
-                result = result.replace(match[0], '<img class="emoji" src="../content/emoji/' + emojiIndex + '.gif" />');
+                result = result.replace(match[0], '<img class="emoji" src="../content/emoji/' + emojiIndex + '.gif" />');//todo:fix this in chrome it will cause a new request for the image
             };
         };
         return result;
