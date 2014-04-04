@@ -1,6 +1,7 @@
 /*
  *hichat v0.4.2
  *Wayou Mar 28,2014
+ *MIT license
  *view on GitHub:https://github.com/wayou/HiChat
  *see it in action:http://hichat.herokuapp.com/
  */
