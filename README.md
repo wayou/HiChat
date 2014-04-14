@@ -5,6 +5,13 @@ An online chat application building with Node.js and socket.io.
 
 View the live demo: http://hichat.herokuapp.com/
 
+Features
+---
+1. send pictures
+2. send emojis
+3. keyboard support
+4. online users count statistic
+
 How to run
 ---
 1. download the code then extract
