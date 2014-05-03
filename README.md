@@ -7,10 +7,10 @@ View the live demo: http://hichat.herokuapp.com/
 
 Features
 ---
-1. send pictures :sunrise:
-2. send emojis :smile:
-3. keyboard support :musical_keyboard:
-4. online users count statistic :ghost:
+* send pictures :sunrise:
+* send emojis :smile:
+* keyboard support :musical_keyboard:
+* online users count statistic :ghost:
 
 How to run
 ---
