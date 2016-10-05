@@ -26,8 +26,10 @@ io.sockets.on('connection', function(socket) {
     });
     //user leaves
     socket.on('disconnect', function() {
-        users.splice(socket.userIndex, 1);
-        socket.broadcast.emit('system', socket.nickname, users.length, 'logout');
+        if (socket.nickname != null) {
+            users.splice(socket.userIndex, 1);
+            socket.broadcast.emit('system', socket.nickname, users.length, 'logout');
+        }
     });
     //new message get
     socket.on('postMsg', function(msg, color) {
