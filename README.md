@@ -21,6 +21,6 @@ How to run
 
 教程见博客 http://www.cnblogs.com/Wayou/p/hichat_built_with_nodejs_socket.html
 
-![blah](https://www.codeship.io/projects/73bd0d90-9897-0131-516c-56598d7b87e5/status)
+![codeship builing status](https://codeship.com/projects/73bd0d90-9897-0131-516c-56598d7b87e5/status?branch=master)
 
 
