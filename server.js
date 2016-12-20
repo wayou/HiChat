@@ -17,7 +17,7 @@ io.sockets.on('connection', function(socket) {
         if (users.indexOf(nickname) > -1) {
             socket.emit('nickExisted');
         } else {
-            socket.userIndex = users.length;
+            //socket.userIndex = users.length;
             socket.nickname = nickname;
             users.push(nickname);
             socket.emit('loginSuccess');
@@ -27,7 +27,8 @@ io.sockets.on('connection', function(socket) {
     //user leaves
     socket.on('disconnect', function() {
         if (socket.nickname != null) {
-            users.splice(socket.userIndex, 1);
+            //users.splice(socket.userIndex, 1);
+            users.splice(users.indexOf(nickname), 1);
             socket.broadcast.emit('system', socket.nickname, users.length, 'logout');
         }
     });
