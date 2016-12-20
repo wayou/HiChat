@@ -28,7 +28,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('disconnect', function() {
         if (socket.nickname != null) {
             //users.splice(socket.userIndex, 1);
-            users.splice(users.indexOf(nickname), 1);
+            users.splice(users.indexOf(socket.nickname), 1);
             socket.broadcast.emit('system', socket.nickname, users.length, 'logout');
         }
     });
