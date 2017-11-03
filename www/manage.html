@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Wayou">
+    <meta name="description" content="HelloChat">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HelloChat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 16px;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <input type="text" placeholder="对方ID" id="idInput" style="width: 160px;outline: none;border: none;border-radius: 32px;box-shadow: 0 0 8px #000 inset;font-size: 16px;padding: 4px;padding-left: 8px;padding-right: 8px;" />
+    <input type="button" value="Ban!" id="killBtn" style="outline: none;border: none;border-radius: 32px;box-shadow: 0 0 8px #000;font-size: 16px;padding: 4px;padding-left: 8px;padding-right: 8px;background: linear-gradient(#0BF, #07E);color: #FFF;font-weight: bold;text-shadow: 0 0 8px #000;" />
+    <div id="users"></div>
+    <lu id="ip"></lu>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/manage.js"></script>
+    <script src="scripts/FileSaver.js"></script>
+</body>
+
+</html>

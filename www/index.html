@@ -1,62 +1,67 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="author" content="Wayou">
-        <meta name="description" content="hichat | a simple chat application built with node.js and websocket">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>hichat</title>
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="banner">
-                <h1>HiChat :)</h1>
-                <span id="status"></span>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Wayou">
+    <meta name="description" content="HelloChat">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HelloChat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body id="body">
+    <div class="wrapper" id="wrapper">
+        <div class="banner">
+            <h1 style="margin-left: 32px;margin-bottom: 0px;">HelloChat<span id="nickname" style="font-size: 24px;font-weight: normal;opacity: 0.5;"></span></h1>
+            <span style="margin-left: 32px;margin-bottom: 0px;" id="status"></span>
+        </div>
+        <div id="historyMsg">
+        </div>
+        <div class="controls" id="controls">
+            <div class="items" style="margin-left: 32px;">
+                <label class="fb" style="display: block;float: left;outline: none;padding:0px;width: 25px;height: 25px;color: transparent;border: none;background: url(images/chat.svg);background-size: 25px 25px;background-repeat: no-repeat;" for="colorStyle" title="气泡颜色"></label>
+                <input style="opacity: 0;width: 0;height: 0;" id="colorStyle" type="color" value='#BBBBBB' title="font color" />
+                <input class="fb" style="float: left;outline: none;width: 25px;height: 25px;color: transparent;border: none;background: url(images/emoji.svg);background-size: 25px 25px;" id="emoji" type="button" value="表情" title="表情" />
+                <label for="sendImage" class="imageLable">
+                    <input class="fb" style="margin-left: -2px;outline: none;width: 25px;height: 25px;color: transparent;border: none;background: url(images/pic.svg);background-size: 25px 25px;" type="button" value="图片" title="图片"  />
+                    <input id="sendImage" type="file" value="image"/>
+                </label>
+                <label for="sendFile" class="fileLable">
+                        <input class="fb" style="margin-left: -2px;outline: none;width: 25px;height: 25px;color: transparent;border: none;background: url(images/file.svg);background-size: 25px 25px;" type="button" value="文件" title="文件"]  />
+                        <input id="sendFile" type="file" value="file"/>
+                </label>
+                <input class="fb" style="margin-right: 36px;float: right;outline: none;width: 25px;height: 25px;color: transparent;border: none;background: url(images/warning.svg);background-size: 25px 25px;" id="warning" type="button" value="紧急情况" title="紧急情况" />
+                <input class="fb" style="float: right;outline: none;width: 25px;height: 25px;color: transparent;border: none;background: url(images/trash.svg);background-size: 25px 25px;" id="clearBtn" type="button" value="清屏" title="清屏" />
+                <input class="fb" style="float: right;outline: none;width: 25px;height: 25px;color: transparent;border: none;background: url(images/private.svg);background-size: 25px 25px;box-shadow: 0 0 0px #000 inset;border-radius: 4px;" id="privateBtn" type="button" value="私信" title="私信" />
+                <input type="text" placeholder="输入对方昵称..." id="targetInput" style="cursor: default;margin-right: 8px;transition-duration: 0.5s;float: right;width: 0;opacity: 0;outline: none;border: none;border-radius: 32px;box-shadow: 0 0 8px #000 inset;font-size: 14px;padding: 3px;padding-left: 8px;padding-right: 8px;" />
             </div>
-            <div id="historyMsg">
-            </div>
-            <div class="controls" >
-                <div class="items">
-                    <input id="colorStyle" type="color" placeHolder='#000' title="font color" />
-                    <input id="emoji" type="button" value="emoji" title="emoji" />
-                    <label for="sendImage" class="imageLable">
-                        <input type="button" value="image"  />
-                        <input id="sendImage" type="file" value="image"/>
-                    </label>
-                    <input id="clearBtn" type="button" value="clear" title="clear screen" />
-                </div>
-                <textarea id="messageInput" placeHolder="enter to send"></textarea>
-                <input id="sendBtn" type="button" value="SEND">
-                <div id="emojiWrapper">
-                </div>
+            <div contentEditable="true" id="messageInput" style="margin-left: 32px;"></div>
+            <br>
+            
+            <button id="sendBtn" value="发送">
+                    <div id="sendInside" class="fb" style="transition-duration:0.5s!important;display: inline-block;outline: none;width: 96px;height: 32px;border: none;background-repeat: no-repeat;background-position: 4px center;background-image: url(images/private_button.svg);opacity: 1!important;margin-left: -4px;background-size: 0 0;">发送</div>
+            </button>
+            <div id="emojiWrapper">
             </div>
         </div>
-        <div id="loginWrapper">
-            <p id="info">connecting to server...</p>
-            <div id="nickWrapper">
-                <input type="text" placeHolder="nickname" id="nicknameInput" />
-                <input type="button" value="OK" id="loginBtn" />
-            </div>
+    </div>
+    <div id="loginWrapper">
+        <div style="padding-top: 4px;padding-bottom: 32px;background: linear-gradient(#DDD,#AAA);width: 256px;margin: auto;height: 64px;border-radius: 4px;box-shadow: 0 0 32px #000;text-shadow: 0 0 4px #000;">
+        <p id="info" style="margin-bottom: 8px;font-size: 20px;font-weight: bold;">正在连接到服务器...</p>
+        <div id="nickWrapper">
+            <input type="text" placeholder="留空以使用游客身份..." id="nicknameInput" style="width: 160px;outline: none;border: none;border-radius: 32px;box-shadow: 0 0 8px #000 inset;font-size: 16px;padding: 4px;padding-left: 8px;padding-right: 8px;" />
+            <input type="button" value="提交" id="loginBtn" style="outline: none;border: none;border-radius: 32px;box-shadow: 0 0 8px #000;font-size: 16px;padding: 4px;padding-left: 8px;padding-right: 8px;background: linear-gradient(#0BF, #07E);color: #FFF;font-weight: bold;text-shadow: 0 0 8px #000;" />
         </div>
-        <footer>
-            <small>view on <a href="https://github.com/Wayou/HiChat">GitHub</a> | <a href="mailto:liuwayong@gmail.com">contact me</a></small>
-        </footer>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="scripts/hichat.js"></script>
-        <script>
-        /**REMOVE ME IF YOU CANT ACCESS GOOGLE SERVICE**/
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        
-          ga('create', 'UA-46794744-7', 'hichat.herokuapp.com');
-          ga('send', 'pageview');
-        /**REMOVE END**/
-    </script>
-    </body>
+    </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/hichat.js"></script>
+    <script src="scripts/FileSaver.js"></script>
+</body>
+
 </html>
