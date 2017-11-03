@@ -1,3 +1,5 @@
+HelloChat is a chatting tool based on HiChat by Wayou Liu.
+---
 HiChat
 ===
  
