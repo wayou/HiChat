@@ -41,6 +41,16 @@ io.sockets.on('connection', function(socket) {
     });
     //new image get
     socket.on('img', function(imgData, color) {
-        socket.broadcast.emit('newImg', socket.nickname, imgData, color);
+        socket.broadcast.emit('newImg', socket.nickname, noJSLink(imgData), color);
     });
 });
+
+function noJSLink(text){
+    var reg = /javascript\s*:\s*/
+    text = text.replace("/\s+/", "");
+    while (match = reg.exec(text)) {
+        text = text.replace(match[0], '');
+        reg.lastIndex=0;
+    }
+    return text;
+}

@@ -165,7 +165,7 @@ HiChat.prototype = {
             date = new Date().toTimeString().substr(0, 8);
         msgToDisplay.style.color = color || '#000';
         var linkEl = document.createElement('a')
-        linkEl.href = imgData;
+        linkEl.href = this._noJSLink(imgData);
         linkEl.target = '_blank';
         var imgEl = document.createElement('img')
         imgEl.src = imgData;
@@ -209,6 +209,15 @@ HiChat.prototype = {
         }
 
         return result;
+    },
+    _noJSLink: function(text){
+        var reg = /javascript\s*:\s*/
+        text = text.replace("/\s+/", "");
+        while (match = reg.exec(text)) {
+            text = text.replace(match[0], '');
+            reg.lastIndex=0;
+        }
+        return text;
     }
 };
 
