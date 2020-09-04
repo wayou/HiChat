@@ -50,6 +50,10 @@ HiChat.prototype = {
         document.getElementById('loginBtn').addEventListener('click', function() {
             var nickName = document.getElementById('nicknameInput').value;
             if (nickName.trim().length != 0) {
+                if(testXSSattemtp(nickName)){
+                    document.getElementById('nicknameInput').value = '';
+                    return false;
+                }
                 that.socket.emit('login', nickName);
             } else {
                 document.getElementById('nicknameInput').focus();
@@ -59,6 +63,10 @@ HiChat.prototype = {
             if (e.keyCode == 13) {
                 var nickName = document.getElementById('nicknameInput').value;
                 if (nickName.trim().length != 0) {
+                    if(testXSSattemtp(nickName)){
+                        document.getElementById('nicknameInput').value = '';
+                        return false;
+                    }
                     that.socket.emit('login', nickName);
                 };
             };
@@ -70,6 +78,7 @@ HiChat.prototype = {
             messageInput.value = '';
             messageInput.focus();
             if (msg.trim().length != 0) {
+                if(testXSSattemtp(msg))return false;
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('me', msg, color);
                 return;
@@ -81,6 +90,7 @@ HiChat.prototype = {
                 color = document.getElementById('colorStyle').value;
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
+                if(testXSSattemtp(msg))return false;
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('me', msg, color);
             };
@@ -174,3 +184,12 @@ HiChat.prototype = {
         return result;
     }
 };
+
+const showXSSMsg = false;
+function testXSSattemtp(txt){
+    if(txt.match(/<.*on[^\s]+[\s]*(=|&#61;|&equals;)[\s]*("|').+("|').*>/gi)){
+        if(showXSSMsg)alert('Please avoid attempting code execution');
+        return true;
+    }
+    return false;
+}
