@@ -123,7 +123,7 @@ HiChat.prototype = {
             if (target.nodeName.toLowerCase() == 'img') {
                 var messageInput = document.getElementById('messageInput');
                 messageInput.focus();
-                sanitizeHtml(messageInput.value) = sanitizeHtml(messageInput.value) + '[emoji:' + target.title + ']';
+                messageInput.value = sanitizeHtml(messageInput.value) + '[emoji:' + target.title + ']';
             };
         }, false);
     },
