@@ -5,6 +5,7 @@
     "main": "server.js",
     "dependencies": {
         "express": "3.4.x",
+        "sanitize-html": "^1.27.4",
         "socket.io": "0.9.x"
     },
     "engines": {

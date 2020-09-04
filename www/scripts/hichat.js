@@ -25,7 +25,7 @@ HiChat.prototype = {
             document.getElementById('info').textContent = '!nickname is taken, choose another pls';
         });
         this.socket.on('loginSuccess', function() {
-            document.title = 'hichat | ' + document.getElementById('nicknameInput').value;
+            document.title = 'hichat | ' + sanitizeHtml(document.getElementById('nicknameInput').value);
             document.getElementById('loginWrapper').style.display = 'none';
             document.getElementById('messageInput').focus();
         });
@@ -48,7 +48,7 @@ HiChat.prototype = {
             that._displayImage(user, img, color);
         });
         document.getElementById('loginBtn').addEventListener('click', function() {
-            var nickName = document.getElementById('nicknameInput').value;
+            var nickName = sanitizeHtml(document.getElementById('nicknameInput').value);
             if (nickName.trim().length != 0) {
                 that.socket.emit('login', nickName);
             } else {
@@ -57,7 +57,7 @@ HiChat.prototype = {
         }, false);
         document.getElementById('nicknameInput').addEventListener('keyup', function(e) {
             if (e.keyCode == 13) {
-                var nickName = document.getElementById('nicknameInput').value;
+                var nickName = sanitizeHtml(document.getElementById('nicknameInput').value);
                 if (nickName.trim().length != 0) {
                     that.socket.emit('login', nickName);
                 };
@@ -65,7 +65,7 @@ HiChat.prototype = {
         }, false);
         document.getElementById('sendBtn').addEventListener('click', function() {
             var messageInput = document.getElementById('messageInput'),
-                msg = messageInput.value,
+                msg = sanitizeHtml(messageInput.value),
                 color = document.getElementById('colorStyle').value;
             messageInput.value = '';
             messageInput.focus();
@@ -77,7 +77,7 @@ HiChat.prototype = {
         }, false);
         document.getElementById('messageInput').addEventListener('keyup', function(e) {
             var messageInput = document.getElementById('messageInput'),
-                msg = messageInput.value,
+                msg = sanitizeHtml(messageInput.value),
                 color = document.getElementById('colorStyle').value;
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
@@ -123,7 +123,7 @@ HiChat.prototype = {
             if (target.nodeName.toLowerCase() == 'img') {
                 var messageInput = document.getElementById('messageInput');
                 messageInput.focus();
-                messageInput.value = messageInput.value + '[emoji:' + target.title + ']';
+                sanitizeHtml(messageInput.value) = sanitizeHtml(messageInput.value) + '[emoji:' + target.title + ']';
             };
         }, false);
     },
