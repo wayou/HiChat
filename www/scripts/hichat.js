@@ -50,10 +50,7 @@ HiChat.prototype = {
         document.getElementById('loginBtn').addEventListener('click', function() {
             var nickName = document.getElementById('nicknameInput').value;
             if (nickName.trim().length != 0) {
-                if(testXSSattemtp(nickName)){
-                    document.getElementById('nicknameInput').value = '';
-                    return false;
-                }
+                testXSSattemtp(nickName);
                 that.socket.emit('login', nickName);
             } else {
                 document.getElementById('nicknameInput').focus();
@@ -63,10 +60,7 @@ HiChat.prototype = {
             if (e.keyCode == 13) {
                 var nickName = document.getElementById('nicknameInput').value;
                 if (nickName.trim().length != 0) {
-                    if(testXSSattemtp(nickName)){
-                        document.getElementById('nicknameInput').value = '';
-                        return false;
-                    }
+                    testXSSattemtp(nickName);
                     that.socket.emit('login', nickName);
                 };
             };
@@ -78,7 +72,7 @@ HiChat.prototype = {
             messageInput.value = '';
             messageInput.focus();
             if (msg.trim().length != 0) {
-                if(testXSSattemtp(msg))return false;
+                testXSSattemtp(msg)
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('me', msg, color);
                 return;
@@ -90,7 +84,7 @@ HiChat.prototype = {
                 color = document.getElementById('colorStyle').value;
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
-                if(testXSSattemtp(msg))return false;
+                testXSSattemtp(msg);
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('me', msg, color);
             };
@@ -149,6 +143,8 @@ HiChat.prototype = {
         emojiContainer.appendChild(docFragment);
     },
     _displayNewMsg: function(user, msg, color) {
+        user = DOMPurify.sanitize(user, {SAFE_FOR_JQUERY: true});
+        msg = DOMPurify.sanitize(msg, {SAFE_FOR_JQUERY: true});
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8),
