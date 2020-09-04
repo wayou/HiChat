@@ -16,7 +16,7 @@ server.listen(process.env.PORT || 3000);//publish to heroku
 io.sockets.on('connection', function(socket) {
     //new user login
     socket.on('login', function(nickname) {
-        nickname = nickname.replace(/[^A-Za-z0-9]/g, '');
+        nickname = nickname.replace(/[^A-Za-z0-9]/g, '').substring(0,70);
         if (users.indexOf(nickname) > -1) {
             socket.emit('nickExisted');
         } else {
@@ -37,7 +37,6 @@ io.sockets.on('connection', function(socket) {
     });
     //new message get
     socket.on('postMsg', function(msg, color) {
-        msg = msg.replace(/on[^\s]+[\s]*(=|&#61;|&equals;)[\s]*("|').+("|')/gi, '');
         socket.broadcast.emit('newMsg', socket.nickname, msg, color);
     });
     //new image get
