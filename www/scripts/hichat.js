@@ -139,6 +139,8 @@ HiChat.prototype = {
         emojiContainer.appendChild(docFragment);
     },
     _displayNewMsg: function(user, msg, color) {
+        msg = DOMPurify.sanitize(msg, {SAFE_FOR_JQUERY: true});
+        user = DOMPurify.sanitize(user, {SAFE_FOR_JQUERY: true});
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8),
