@@ -152,6 +152,8 @@ HiChat.prototype = {
         container.scrollTop = container.scrollHeight;
     },
     _displayImage: function(user, imgData, color) {
+        imgData = DOMPurify.sanitize(imgData, {SAFE_FOR_JQUERY: true});
+        user = DOMPurify.sanitize(user, {SAFE_FOR_JQUERY: true});
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8);
@@ -161,6 +163,7 @@ HiChat.prototype = {
         container.scrollTop = container.scrollHeight;
     },
     _showEmoji: function(msg) {
+        msg = DOMPurify.sanitize(msg, {SAFE_FOR_JQUERY: true});
         var match, result = msg,
             reg = /\[emoji:\d+\]/g,
             emojiIndex,
