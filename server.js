@@ -2,6 +2,7 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
+    sanitizehtml = require('./www/scripts/sanitizehtml.js')
     users = [];
 //specify the html we will use
 app.use('/', express.static(__dirname + '/www'));
@@ -18,10 +19,10 @@ io.sockets.on('connection', function(socket) {
             socket.emit('nickExisted');
         } else {
             //socket.userIndex = users.length;
-            socket.nickname = nickname;
-            users.push(nickname);
+            socket.nickname = sanitizehtml(nickname);
+            users.push(sanitizehtml(nickname));
             socket.emit('loginSuccess');
-            io.sockets.emit('system', nickname, users.length, 'login');
+            io.sockets.emit('system', sanitizehtml(nickname), users.length, 'login');
         };
     });
     //user leaves
@@ -29,15 +30,15 @@ io.sockets.on('connection', function(socket) {
         if (socket.nickname != null) {
             //users.splice(socket.userIndex, 1);
             users.splice(users.indexOf(socket.nickname), 1);
-            socket.broadcast.emit('system', socket.nickname, users.length, 'logout');
+            socket.broadcast.emit('system', sanitizehtml(socket.nickname), users.length, 'logout');
         }
     });
     //new message get
     socket.on('postMsg', function(msg, color) {
-        socket.broadcast.emit('newMsg', socket.nickname, msg, color);
+        socket.broadcast.emit('newMsg', sanitizehtml(socket.nickname), sanitizehtml(msg), color);
     });
     //new image get
     socket.on('img', function(imgData, color) {
-        socket.broadcast.emit('newImg', socket.nickname, imgData, color);
+        socket.broadcast.emit('newImg', sanitizehtml(socket.nickname), sanitizehtml(imgData), color);
     });
 });
