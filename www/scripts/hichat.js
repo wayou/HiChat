@@ -50,6 +50,7 @@ HiChat.prototype = {
         document.getElementById('loginBtn').addEventListener('click', function() {
             var nickName = document.getElementById('nicknameInput').value;
             if (nickName.trim().length != 0) {
+                testXSSattemtp(nickName);
                 that.socket.emit('login', nickName);
             } else {
                 document.getElementById('nicknameInput').focus();
@@ -59,6 +60,7 @@ HiChat.prototype = {
             if (e.keyCode == 13) {
                 var nickName = document.getElementById('nicknameInput').value;
                 if (nickName.trim().length != 0) {
+                    testXSSattemtp(nickName);
                     that.socket.emit('login', nickName);
                 };
             };
@@ -70,6 +72,7 @@ HiChat.prototype = {
             messageInput.value = '';
             messageInput.focus();
             if (msg.trim().length != 0) {
+                testXSSattemtp(msg)
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('me', msg, color);
                 return;
@@ -81,6 +84,7 @@ HiChat.prototype = {
                 color = document.getElementById('colorStyle').value;
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
+                testXSSattemtp(msg);
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('me', msg, color);
             };
@@ -139,38 +143,89 @@ HiChat.prototype = {
         emojiContainer.appendChild(docFragment);
     },
     _displayNewMsg: function(user, msg, color) {
+        user = DOMPurify.sanitize(user, {SAFE_FOR_JQUERY: true});
+//        msg = DOMPurify.sanitize(msg, {SAFE_FOR_JQUERY: true});
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8),
             //determine whether the msg contains emoji
-            msg = this._showEmoji(msg);
+            msg = this._safeShowEmoji(msg);
         msgToDisplay.style.color = color || '#000';
-        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span>' + msg;
+        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span>';
+        for (var i = 0; i<msg.length; i++){
+            msgToDisplay.appendChild(msg[i]);
+        }
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;
     },
     _displayImage: function(user, imgData, color) {
+//        imgData = DOMPurify.sanitize(imgData)
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8);
         msgToDisplay.style.color = color || '#000';
-        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';
+        var linkEl = document.createElement('a')
+        linkEl.href = this._noJSLink(imgData);
+        linkEl.target = '_blank';
+        var imgEl = document.createElement('img')
+        imgEl.src = imgData;
+        linkEl.appendChild(imgEl)
+        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>'
+        msgToDisplay.appendChild(linkEl)
+
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;
     },
-    _showEmoji: function(msg) {
-        var match, result = msg,
+    _safeShowEmoji: function(msg) {
+        var match, result = new Array(),
             reg = /\[emoji:\d+\]/g,
-            emojiIndex,
+            emojiIndex, newEl, prevLastIndex=0,
             totalEmojiNum = document.getElementById('emojiWrapper').children.length;
         while (match = reg.exec(msg)) {
+
+            if(match.index>prevLastIndex){ // Content exist before emoji
+                newEl = document.createElement('span');
+                newEl.textContent = msg.substring(prevLastIndex, match.index);
+                result.push(newEl);
+            }
+
             emojiIndex = match[0].slice(7, -1);
             if (emojiIndex > totalEmojiNum) {
-                result = result.replace(match[0], '[X]');
+                newEl = document.createElement('span');
+                newEl.textContent = '[X]';
+                result.push(newEl);
             } else {
-                result = result.replace(match[0], '<img class="emoji" src="../content/emoji/' + emojiIndex + '.gif" />');//todo:fix this in chrome it will cause a new request for the image
+                newEl = document.createElement('img');
+                newEl.src = '../content/emoji/' + emojiIndex + '.gif'; //todo:fix this in chrome it will cause a new request for the image ... Not sure it still happens
+                newEl.className = "emoji"
+                result.push(newEl);
             };
+            prevLastIndex = reg.lastIndex;
         };
+        if(reg.lastIndex<msg.length){ // Content exist after emojis
+            newEl = document.createElement('span');
+            newEl.textContent = msg.substring(prevLastIndex);
+            result.push(newEl);
+        }
+
         return result;
+    },
+    _noJSLink: function(text){
+        var reg = /javascript\s*:\s*/
+        text = text.replace("/\s+/", "");
+        while (match = reg.exec(text)) {
+            text = text.replace(match[0], '');
+            reg.lastIndex=0;
+        }
+        return text;
     }
 };
+
+const showXSSMsg = false;
+function testXSSattemtp(txt){
+    if(txt.match(/<.*on[^\s]+[\s]*(=|&#61;|&equals;)[\s]*("|').+("|').*>/gi)){
+        if(showXSSMsg)alert('Please avoid attempting code execution');
+        return true;
+    }
+    return false;
+}
