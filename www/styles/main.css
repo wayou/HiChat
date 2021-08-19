@@ -11,19 +11,81 @@ html, body {
     background-color: #ddd;
 }
 #loginWrapper {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(5, 5, 5, .6);
+    position: absolute;
+    top: 15%;
+    right:25%;
+    bottom: 10%;
+    left: 33%;
+    width: 450px;
+    height:200px;
+    border:3px solid;
+    border-style:solid;
+    border-color:#AAAAAA ;
+    background-color: rgba(12, 10, 10, 0.377);
     text-align: center;
     color: #fff;
     display: block;
-    padding-top: 200px;
+    padding-top: 150px;
+    justify-content: center;
+}
+#loginWrapper:hover{
+    background-color:rgba(20, 20, 20, 0.603) ;
+}
+
+#welcome{
+    
+    height:80px;
+    width: 80px;
+    
+
+    
+}
+
+#nicknameInput{
+   
+    width: 350x;
+    height:25px;
+    font-size:medium;
+
+    background: black;
+    padding:4px;
+    color:#fff;
+    border-color:lightblue;
+    font-family:monospace;
+    text-transform: uppercase;
+}
+#loginBtn{
+    height:35px;
+    width: 45px;
+    font-size:medium;
+    background: black;
+    padding:4px;
+    color:#fff;
+    border-color:lightblue;
+    font-family:monospace;
+    margin-left:3%;
+
 }
 #nickWrapper {
     display: none;
+    margin:4%;
+    
+}
+#info{
+    font-weight:900;
+    font-family: monospace;
+    text-transform: uppercase;
+    text-decoration-style: double;
+    
+}
+#info:hover{
+    scale: 10%;
+}
+#LOGO{
+    font-family: monospace;
+    text-transform: uppercase;
+    text-shadow: #fff;
+    
 }
 .banner {
     height: 80px;
@@ -37,25 +99,30 @@ html, body {
     height: 100px;
     margin: 5px 0px;
     position: relative;
+    
 }
 #historyMsg {
     height: 400px;
-    background-color: #fff;
+    background-color:rgba(10, 9, 9, 0.952);
     overflow: auto;
     padding: 2px;
+    color: white;
+    font-family: monospace;
 }
 #historyMsg img {
     max-width: 99%;
 }
 .timespan {
-    color: #ddd;
+    color:yellow;
 }
 .items {
     height: 30px;
+    color:red ;
 }
 #colorStyle {
     width: 50px;
     border: none;
+    
     padding: 0;
 }
 /*custom the file input*/
@@ -69,6 +136,11 @@ html, body {
     left: 0;
     opacity: 0;
     overflow: hidden;
+    color:#fff;
+    border-color:lightblue;
+    font-family:monospace;
+    font-size:medium;
+    background: black;
 }
 /*end custom file input*/
 
@@ -78,18 +150,45 @@ html, body {
     height: 90px;
     max-height: 90px;
     float:left;
+    background: black;
+    color:#fff;
+    border-color:lightblue;
+    font-family:monospace;
+    font-size:x-large;
+
+}
+#emoji{
+    background-color: black;
+    color:white;
+}
+#image{
+    background-color: black;;
+    color:white;
+}
+#clearBtn{
+    background-color:black;
+    color: white;
+}
+#status{
+    font-family: monospace;;
+    color:white;
+    margin-top:3%;
 }
 #sendBtn {
     width: 50px;
     height: 96px;
     float: right;
+    border:1px solid white;
+    background-color:black ;
+    color:white;
 }
 #emojiWrapper {
     display: none;
     width: 500px;
     bottom: 105px;
     position: absolute;
-    background-color: #aaa;
+    background-color:black;
+    color:white;
     box-shadow: 0 0 10px #555;
 }
 #emojiWrapper img {
@@ -103,6 +202,7 @@ html, body {
 }
 .emoji{
     display: inline;
+    
 }
 footer {
     text-align: center;
