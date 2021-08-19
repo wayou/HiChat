@@ -82,7 +82,7 @@ HiChat.prototype = {
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('me', msg, color);
+                that._displayNewMsg('me', msg, 'White');
             };
         }, false);
         document.getElementById('clearBtn').addEventListener('click', function() {
@@ -144,7 +144,7 @@ HiChat.prototype = {
             date = new Date().toTimeString().substr(0, 8),
             //determine whether the msg contains emoji
             msg = this._showEmoji(msg);
-        msgToDisplay.style.color = color || '#000';
+        msgToDisplay.style.color = color || '#FFDC00';
         msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span>' + msg;
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;

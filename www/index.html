@@ -10,11 +10,12 @@
         <link rel="stylesheet" href="styles/main.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
+       
     </head>
     <body>
         <div class="wrapper">
             <div class="banner">
-                <h1>HiChat :)</h1>
+                <h1 id="LOGO"><img src="https://img.icons8.com/color/48/000000/weixing.png"/> HiChat:)</h1>
                 <span id="status"></span>
             </div>
             <div id="historyMsg">
@@ -24,21 +25,23 @@
                     <input id="colorStyle" type="color" placeHolder='#000' title="font color" />
                     <input id="emoji" type="button" value="emoji" title="emoji" />
                     <label for="sendImage" class="imageLable">
-                        <input type="button" value="image"  />
+                        <input type="button" value="image" id="image" />
                         <input id="sendImage" type="file" value="image"/>
                     </label>
                     <input id="clearBtn" type="button" value="clear" title="clear screen" />
                 </div>
-                <textarea id="messageInput" placeHolder="enter to send"></textarea>
+                <textarea id="messageInput" placeholder="ENTER MSG HERE"></textarea>
                 <input id="sendBtn" type="button" value="SEND">
                 <div id="emojiWrapper">
                 </div>
             </div>
         </div>
         <div id="loginWrapper">
+            <a href="https://icons8.com/icon/61333/salute"></a>
+            <img src="https://img.icons8.com/color/48/000000/user.png"/ id="welcome">
             <p id="info">connecting to server...</p>
             <div id="nickWrapper">
-                <input type="text" placeHolder="nickname" id="nicknameInput" />
+                <input type="text" id="nicknameInput" />
                 <input type="button" value="OK" id="loginBtn" />
             </div>
         </div>
