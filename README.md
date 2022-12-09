@@ -2,12 +2,12 @@ HiChat
 ===
 
 
-#Features
-#---
-#* send pictures :sunrise:
-#* send emojis :smile:
-#* keyboard support :musical_keyboard:
-#* online users count statistic :ghost:
+# Features
+# ---
+# * send pictures :sunrise:
+# * send emojis :smile:
+# * keyboard support :musical_keyboard:
+# * online users count statistic :ghost:
 
 Installing
 ---
