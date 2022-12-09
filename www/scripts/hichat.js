@@ -5,6 +5,17 @@
  *view on GitHub:https://github.com/wayou/HiChat
  *see it in action:http://hichat.herokuapp.com/
  */
+String.prototype.rep = function(find,replace) {
+     return this.split(find).join(replace);
+};
+function fixss(input) {
+    var inp = input;
+    while (inp.indexOf('javascript:') != -1) {
+        inp = inp.split('javascript:').join('');
+    }
+    inp = inp.rep('&','&amp;').rep('<','&lt;').rep('>','&gt;').rep('"','&quot');
+    return inp;
+}
 window.onload = function() {
     var hichat = new HiChat();
     hichat.init();
@@ -31,7 +42,7 @@ HiChat.prototype = {
             document.getElementById('info').textContent = '!nickname is taken, choose another pls';
         });
         this.socket.on('loginSuccess', function() {
-            document.title = 'hichat | ' + document.getElementById('nicknameInput').value;
+            document.title = 'hichat | ' + fixss(document.getElementById('nicknameInput').value);
             document.getElementById('loginWrapper').style.display = 'none';
             document.getElementById('messageInput').focus();
         });
@@ -77,7 +88,7 @@ HiChat.prototype = {
             messageInput.focus();
             if (msg.trim().length != 0) {
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('me', msg, color);
+                that._displayNewMsg('me', fixss(msg), fixss(color));
                 return;
             };
         }, false);
@@ -88,7 +99,7 @@ HiChat.prototype = {
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('me', msg, color);
+                that._displayNewMsg('me', fixss(msg), fixss(color));
             };
         }, false);
         document.getElementById('clearBtn').addEventListener('click', function() {
@@ -107,7 +118,7 @@ HiChat.prototype = {
                 reader.onload = function(e) {
                     this.value = '';
                     that.socket.emit('img', e.target.result, color);
-                    that._displayImage('me', e.target.result, color);
+                    that._displayImage('me', fixss(e.target.result), fixss(color));
                 };
                 reader.readAsDataURL(file);
             };
