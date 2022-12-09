@@ -1,9 +1,14 @@
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server),
+    { Server } = require('socket.io');
     users = [];
 //specify the html we will use
+var io = new Server(server, {
+  path: "/socket.io/",
+  pingTimeout: 15000,
+  pingInterval: 10000,
+});
 app.use('/', express.static(__dirname + '/www'));
 //bind the server to the 80 port
 //server.listen(3000);//for local test
