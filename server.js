@@ -17,7 +17,7 @@ function fixss(input) {
     while (inp.indexOf('javascript:') != -1) {
         inp = inp.split('javascript:').join('');
     }
-    inp = inp.rep('&','&amp;').rep('<','&ls;').rep('>','&gt;').rep('"','&quot');
+    inp = inp.rep('&','&amp;').rep('<','&lt;').rep('>','&gt;').rep('"','&quot');
     return inp;
 }
 app.use('/', express.static(__dirname + '/www'));
