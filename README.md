@@ -1,26 +1,20 @@
 HiChat
 ===
- 
-A chat application built with Node.js and socket.io.
 
-View the live demo: http://hichat.herokuapp.com/
 
-Features
+#Features
+#---
+#* send pictures :sunrise:
+#* send emojis :smile:
+#* keyboard support :musical_keyboard:
+#* online users count statistic :ghost:
+
+Installing
 ---
-* send pictures :sunrise:
-* send emojis :smile:
-* keyboard support :musical_keyboard:
-* online users count statistic :ghost:
+1. Download source code & extract .zip
+2. Open your terminal (`cmd` for Windows)
+3. In the terminal, type in `npm install` and hit enter.
+4. Once all modules have installed, type in `node server` and hit enter.
+5. Wait for a message to appear in the terminal, then in a web browser, go to `http://127.0.0.1:3000/`
 
-How to run
----
-1. download the code then extract
-2. run `npm install` from command line window
-3. run `node server` or `iojs server` if you are using [io.js](https://iojs.org/)
-4. finnaly, open your browser and visit `localhost:3000`
-
-[教程见博客](http://www.cnblogs.com/Wayou/p/hichat_built_with_nodejs_socket.html)
-
-![codeship builing status](https://codeship.com/projects/73bd0d90-9897-0131-516c-56598d7b87e5/status?branch=master)
-
-
+[See (original) blog/tutorial](http://www.cnblogs.com/Wayou/p/hichat_built_with_nodejs_socket.html)
