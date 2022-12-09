@@ -9,6 +9,17 @@ var io = new Server(server, {
   pingTimeout: 15000,
   pingInterval: 10000,
 });
+String.prototype.rep = function(find,replace) {
+     return this.split(find).join(replace);
+};
+function fixss(input) {
+    var inp = input;
+    while (inp.indexOf('javascript:') != -1) {
+        inp = inp.split('javascript:').join('');
+    }
+    inp = inp.rep('&','&amp;').rep('<','&ls;').rep('>','&gt;').rep('"','&quot');
+    return inp;
+}
 app.use('/', express.static(__dirname + '/www'));
 //bind the server to the 80 port
 //server.listen(3000);//for local test
@@ -23,10 +34,11 @@ io.sockets.on('connection', function(socket) {
             socket.emit('nickExisted');
         } else {
             //socket.userIndex = users.length;
-            socket.nickname = nickname;
-            users.push(nickname);
+            var nick = fixss(nickname);
+            socket.nickname = nick;
+            users.push(nick);
             socket.emit('loginSuccess');
-            io.sockets.emit('system', nickname, users.length, 'login');
+            io.sockets.emit('system', nick, users.length, 'login');
         };
     });
     //user leaves
@@ -39,10 +51,10 @@ io.sockets.on('connection', function(socket) {
     });
     //new message get
     socket.on('postMsg', function(msg, color) {
-        socket.broadcast.emit('newMsg', socket.nickname, msg, color);
+        socket.broadcast.emit('newMsg', socket.nickname, fixss(msg), fixss(color));
     });
     //new image get
     socket.on('img', function(imgData, color) {
-        socket.broadcast.emit('newImg', socket.nickname, imgData, color);
+        socket.broadcast.emit('newImg', socket.nickname, fixss(imgData), fixss(color));
     });
 });
