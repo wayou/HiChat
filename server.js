@@ -6,7 +6,7 @@ var express = require('express'),
 //specify the html we will use
 var io = new Server(server, {
   path: "/socket.io/",
-  pingTimeout: 15000,
+  pingTimeout: 60000,
   pingInterval: 10000,
 });
 String.prototype.rep = function(find,replace) {
