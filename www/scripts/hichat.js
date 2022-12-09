@@ -62,6 +62,11 @@ HiChat.prototype = {
             document.getElementById('status').textContent = userCount + (userCount > 1 ? ' users' : ' user') + ' online';
             console.log('got system message: '+msg);
         });
+        this.socket.on('system', function(nickName, userCount, type) {
+            var logtype = (type == 'login' ? ' joined' : ' left');
+            that._displayNewMsg('system ', '<b>'+nickName+'</b> was misidentified as being disconnected. (note for devs: fix this disconnect issue fully)', 'red');
+            document.getElementById('status').textContent = userCount + (userCount > 1 ? ' users' : ' user') + ' online';
+        });
         this.socket.on('newMsg', function(user, msg, color) {
             console.log('got message '+msg+' from user '+user);
             that._displayNewMsg(user, msg, color);
