@@ -26,23 +26,25 @@ var HiChat = function() {
 HiChat.prototype = {
     init: function() {
         var that = this;
+        var ts = Date.now();
         this.socket = io.connect();
         this.socket.on('connect', function() {
             document.getElementById('info').textContent = 'get yourself a nickname :)';
             document.getElementById('nickWrapper').style.display = 'block';
             document.getElementById('nicknameInput').focus();
         });
-        // debug:
-        /*var ts = Date.now();
         this.socket.io.on('ping', function() {
-            that._displayNewMsg('sample', Date.now()-ts, 'red');
+            console.log('got ping packet in '+Date.now()-ts+' ms');
             ts = Date.now();
-        })*/
+        })
         this.socket.on('nickExisted', function() {
+            console.log('user '+fixss(document.getElementById('nicknameInput').value)+' already exists');
             document.getElementById('info').textContent = '!nickname is taken, choose another pls';
         });
         this.socket.on('loginSuccess', function() {
-            document.title = 'hichat | ' + fixss(document.getElementById('nicknameInput').value);
+            var xssuser = fixss(document.getElementById('nicknameInput').value);
+            console.log('logged in as '+xssuser);
+            document.title = 'hichat | ' + xssuser);
             document.getElementById('loginWrapper').style.display = 'none';
             document.getElementById('messageInput').focus();
         });
@@ -54,21 +56,27 @@ HiChat.prototype = {
             }
         });
         this.socket.on('system', function(nickName, userCount, type) {
-            var msg = nickName + (type == 'login' ? ' joined' : ' left');
+            var logtype = (type == 'login' ? ' joined' : ' left');
+            var msg = nickName + logtype;
             that._displayNewMsg('system ', msg, 'red');
             document.getElementById('status').textContent = userCount + (userCount > 1 ? ' users' : ' user') + ' online';
+            console.log('got system message: '+msg);
         });
         this.socket.on('newMsg', function(user, msg, color) {
+            console.log('got message '+msg+' from user '+user);
             that._displayNewMsg(user, msg, color);
         });
         this.socket.on('newImg', function(user, img, color) {
+            console.log('got image data of length '+img.length+' from user '+user);
             that._displayImage(user, img, color);
         });
         document.getElementById('loginBtn').addEventListener('click', function() {
             var nickName = document.getElementById('nicknameInput').value;
             if (nickName.trim().length != 0) {
                 that.socket.emit('login', nickName);
+                console.log('logging in as '+fixss(nickName));
             } else {
+                console.log('login nickname is empty');
                 document.getElementById('nicknameInput').focus();
             };
         }, false);
@@ -76,6 +84,7 @@ HiChat.prototype = {
             if (e.keyCode == 13) {
                 var nickName = document.getElementById('nicknameInput').value;
                 if (nickName.trim().length != 0) {
+                    console.log('logging in as '+fixss(nickName));
                     that.socket.emit('login', nickName);
                 };
             };
@@ -89,6 +98,7 @@ HiChat.prototype = {
             if (msg.trim().length != 0) {
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('me', fixss(msg), fixss(color));
+                console.log('sent message '+fixss(msg)+'as user'+fixss(document.getElementById('nicknameInput').value));
                 return;
             };
         }, false);
