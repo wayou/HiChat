@@ -5,17 +5,6 @@
  *view on GitHub:https://github.com/wayou/HiChat
  *see it in action:http://hichat.herokuapp.com/
  */
-String.prototype.rep = function(find,replace) {
-     return this.split(find).join(replace);
-};
-function fixss(input) {
-    var inp = input;
-    while (inp.indexOf('javascript:') != -1) {
-        inp = inp.split('javascript:').join('');
-    }
-    inp = inp.rep('&','&amp;').rep('<','&lt;').rep('>','&gt;').rep('"','&quot');
-    return inp;
-}
 window.onload = function() {
     var hichat = new HiChat();
     hichat.init();
@@ -32,6 +21,12 @@ HiChat.prototype = {
             document.getElementById('nickWrapper').style.display = 'block';
             document.getElementById('nicknameInput').focus();
         });
+        // debug:
+        /*var ts = Date.now();
+        this.socket.io.on('ping', function() {
+            that._displayNewMsg('sample', Date.now()-ts, 'red');
+            ts = Date.now();
+        })*/
         this.socket.on('nickExisted', function() {
             document.getElementById('info').textContent = '!nickname is taken, choose another pls';
         });
@@ -93,7 +88,7 @@ HiChat.prototype = {
             if (e.keyCode == 13 && msg.trim().length != 0) {
                 messageInput.value = '';
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('me', fixss(msg), fixss(color));
+                that._displayNewMsg('me', msg, color);
             };
         }, false);
         document.getElementById('clearBtn').addEventListener('click', function() {
@@ -112,7 +107,7 @@ HiChat.prototype = {
                 reader.onload = function(e) {
                     this.value = '';
                     that.socket.emit('img', e.target.result, color);
-                    that._displayImage('me', fixss(e.target.result), fixss(color));
+                    that._displayImage('me', e.target.result, color);
                 };
                 reader.readAsDataURL(file);
             };
