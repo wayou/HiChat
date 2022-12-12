@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -16,6 +16,7 @@
             <div class="banner">
                 <h1>HiChat :)</h1>
                 <span id="status"></span>
+                <input type="text" placeHolder="Chat room name" value="main" id="chatRoom" /><button id="roomBtn">join chat room</button>
             </div>
             <div id="historyMsg">
             </div>
@@ -45,7 +46,12 @@
         <footer>
             <small>view on <a href="https://github.com/Wayou/HiChat">GitHub</a> | <a href="mailto:liuwayong@gmail.com">contact me</a></small>
         </footer>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="scripts/hichat.js"></script>
+        <script src="/socket.io/socket.io.js" onload="window.socketLoaded = true;"></script>
+        <script src="/scripts/hichat.js"></script>
+        <script>
+            window.onerror = function(a,b,c) {
+                document.write([a,b,c].join(' '))
+            };
+        </script>
     </body>
 </html>
