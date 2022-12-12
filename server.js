@@ -1,8 +1,9 @@
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    { Server } = require('socket.io');
-    users = [];
+    { Server } = require('socket.io'),
+    chef = require('cyberchef'),
+    users = [],
 var io = new Server(server, {
   path: "/socket.io/",
   pingTimeout: 60000,
@@ -38,7 +39,7 @@ io.sockets.on('connection', function(socket) {
             socket.nickname = nick;
             users.push(nick);
             socket.emit('loginSuccess');
-            io.sockets.emit('system', nick, users.length, 'login');
+            io.sockets.emit(chef.'system', nick, users.length, 'login');
             console.log('User '+nick+' joined');
         };
     });
