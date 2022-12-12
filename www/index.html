@@ -49,8 +49,8 @@
         <script src="/socket.io/socket.io.js" onload="window.socketLoaded = true;"></script>
         <script src="/scripts/hichat.js"></script>
         <script>
-            window.onerror = function(a,b,c) {
-                document.write([a,b,c].join(' '))
+            window.onerror = function(error, url, line) {
+                alert('Encountered an error! Give this info to the devs: ' + error + ' at ' + url + ' on line ' + line);
             };
         </script>
     </body>
