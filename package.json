@@ -1,7 +1,7 @@
 {
   "name": "hichat",
-  "version": "1.1.3",
-  "description": "placeholder",
+  "version": "1.2.0",
+  "description": "A chatting website written in Node.JS and Socket.IO. Meant to be a secure version of the original code by wayou on GitHub.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
