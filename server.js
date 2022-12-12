@@ -38,6 +38,7 @@ io.sockets.on('connection', function(socket) {
       socket.emit('nickExisted');
     } else {
       //socket.userIndex = users.length;
+      socket.room = chatroom;
       var nick = fixss(nickname);
       socket.nickname = nick;
       users.push(nick);
@@ -55,14 +56,23 @@ io.sockets.on('connection', function(socket) {
       socket.broadcast.emit('system', socket.nickname, users.length, 'logout');
     }
   });
+  socket.on('joinRoom', function(chatroom) {
+    socket.room = chatroom;
+  });
   //new message get
   socket.on('postMsg', function(msg, color, room) {
-    console.log('got message from ' + socket.nickname + ' with content: ' + fixss(msg) + ' in room: ' + room);
-    socket.broadcast.emit('newMsg', socket.nickname, fixss(msg), fixss(color), fixss(room));
+    if (room != null && typeof room == 'string') {
+      if (fixss(room) === socket.room) {
+        console.log('got message from ' + socket.nickname + ' with content: ' + fixss(msg) + ' in room: ' + room);
+        socket.broadcast.emit('newMsg', socket.nickname, fixss(msg), fixss(color), fixss(room));
+      }
+    }
   });
   //new image get
   socket.on('img', function(imgData, color, room) {
-    console.log('got image from ' + socket.nickname + ' with data size of ' + imgData.length + ' bytes');
-    socket.broadcast.emit('newImg', socket.nickname, fixss(imgData), fixss(color), fixss(room));
+    if (room != null && typeof room == 'string') {
+      console.log('got image from ' + socket.nickname + ' with data size of ' + imgData.length + ' bytes');
+      socket.broadcast.emit('newImg', socket.nickname, fixss(imgData), fixss(color), fixss(room));
+    }
   });
 });

@@ -81,6 +81,7 @@ HiChat.prototype = {
     }, false);
     document.getElementById('roomBtn').addEventListener('click', function() {
       window.currentRoom = document.getElementById('chatRoom').value;
+      socket.emit('joinRoom', window.currentRoom);
       console.log('joined chat room ' + document.getElementById('chatRoom').value);
     }, false);
     document.getElementById('nicknameInput').addEventListener('keyup', function(e) {
