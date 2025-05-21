@@ -162,7 +162,7 @@ HiChat.prototype = {
         var match, result = msg,
             reg = /\[emoji:\d+\]/g,
             emojiIndex,
-            totalEmojiNum = document.getElementById('emojiWrapper').children.length;
+            totalEmojiNum = 69;
         while (match = reg.exec(msg)) {
             emojiIndex = match[0].slice(7, -1);
             if (emojiIndex > totalEmojiNum) {
